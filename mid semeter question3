@@ -1,0 +1,53 @@
+#include <iostream>
+
+class Stack {
+private:
+    int size;         // Maximum size of the stack
+    int top;          // Index of the top element in the stack
+    float *elements;  // Array to store the elements of the stack
+
+public:
+    Stack(int maxSize) {
+        size = maxSize;
+        top = -1;       // Stack is initially empty
+        elements = new float[size];
+    }
+
+    ~Stack() {
+        delete[] elements;
+    }
+
+    bool isFull() {
+        return top == size - 1;
+    }
+
+    bool isEmpty() {
+        return top == -1;
+    }
+
+    void push(float value) {
+        if (isFull()) {
+            std::cout << "Stack overflow! Cannot push element " << value << ".\n";
+            return;
+        }
+
+        elements[++top] = value;
+        std::cout << "Pushed element " << value << " onto the stack.\n";
+    }
+};
+
+int main() {
+    int stackSize;
+    std::cout << "Enter the maximum size of the stack: ";
+    std::cin >> stackSize;
+
+    Stack myStack(stackSize);
+
+    float value;
+    std::cout << "Enter real numbers to push onto the stack (enter a non-number to stop):\n";
+    while (std::cin >> value) {
+        myStack.push(value);
+    }
+
+    return 0;
+}
